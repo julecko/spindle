@@ -1,4 +1,4 @@
-use egui::{Color32, Sense, Stroke, vec2};
+use egui::{Color32, vec2};
 
 /// The app's logo — no brand wordmark, just a painted disc glyph. Lives in
 /// `widgets/` (not inline in `app.rs`) because it's a self-contained piece

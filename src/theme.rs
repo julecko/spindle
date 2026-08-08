@@ -1,4 +1,4 @@
-use egui::{Color32, Stroke, Visuals};
+use egui::{Color32, CursorIcon, Stroke, Visuals};
 
 /// A named color set, picked from `catalog()` and applied app-wide via
 /// `apply()`. Adding a new theme is just adding an entry to `catalog()` —
@@ -57,6 +57,10 @@ pub fn apply(ctx: &egui::Context, theme: &Theme) {
     } else {
         Visuals::light()
     };
+
+    // `None` by default in egui — without this, hovering any clickable
+    // widget (nav links included) leaves the cursor as a plain arrow.
+    visuals.interact_cursor = Some(CursorIcon::PointingHand);
 
     visuals.panel_fill = theme.background;
     visuals.window_fill = theme.background;
