@@ -6,7 +6,7 @@ panic = "abort"
 strip = true
 
 [package]
-name = "tunevault"
+name = "spindle"
 version = "0.1.0"
 edition = "2024"
 
