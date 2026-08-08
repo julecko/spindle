@@ -1,29 +1,21 @@
-// src/main.rs
-use eframe::egui;
+// Each `mod` here is one directory (or file) under src/. This is the only
+// place the module tree is declared — every other file just does
+// `use crate::...` for the parts it needs.
+mod app;
+mod data;
+mod models;
+mod screens;
+mod state;
+mod theme;
+mod widgets;
 
 fn main() -> eframe::Result<()> {
     eframe::run_native(
         "Spindle",
         eframe::NativeOptions::default(),
-        Box::new(|_cc| Ok(Box::new(MyApp::default()))),
+        Box::new(|cc| {
+            theme::apply(&cc.egui_ctx, &theme::catalog()[2]);
+            Ok(Box::new(app::SpindleApp::default()))
+        }),
     )
-}
-
-#[derive(Default)]
-struct MyApp {
-    count: i32,
-}
-
-impl eframe::App for MyApp {
-    fn ui(&mut self, ui: &mut egui::Ui, _frame: &mut eframe::Frame) {
-        ui.label(format!("Count: {}", self.count));
-
-        if ui.button("Increment").clicked() {
-            self.count += 1;
-        }
-
-        if ui.button("Reset").clicked() {
-            self.count = 0;
-        }
-    }
 }

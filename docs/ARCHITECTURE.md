@@ -1,13 +1,13 @@
 # Architecture
 
-TuneVault is a personal CD/MP3 collection cataloguer, in Slovak, built as a
+Spindle is a personal CD/MP3 collection cataloguer, in Slovak, built as a
 desktop-style app with egui/eframe. This doc records decisions already made
 so future work (human or agent) doesn't re-litigate them. If you deviate
 from something here, update this file in the same change.
 
 ## Crate layout: single crate, not a workspace
 
-One binary (`tunevault`), organized into modules, not a Cargo workspace.
+One binary (`spindle`), organized into modules, not a Cargo workspace.
 Nothing outside this app consumes the data models or sync logic as an
 independent library today, so a workspace (separate `-core` lib + bin crate,
 path deps, per-crate versioning) would add ceremony with no payoff at this
@@ -15,7 +15,7 @@ size.
 
 Revisit only if a second consumer shows up in this repo (e.g. a CLI, or the
 sync server itself living alongside the client) — at that point split
-`models/` + `state/` + `data/` into a `tunevault-core` lib crate and keep
+`models/` + `state/` + `data/` into a `spindle-core` lib crate and keep
 `app.rs`/`screens/`/`widgets/`/`theme.rs` in the bin crate.
 
 ## Module map
