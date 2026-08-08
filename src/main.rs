@@ -14,6 +14,7 @@ fn main() -> eframe::Result<()> {
         "Spindle",
         eframe::NativeOptions::default(),
         Box::new(|cc| {
+            egui_extras::install_image_loaders(&cc.egui_ctx);
             theme::apply(&cc.egui_ctx, &theme::catalog()[2]);
             Ok(Box::new(app::SpindleApp::default()))
         }),

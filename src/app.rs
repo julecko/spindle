@@ -29,28 +29,16 @@ impl eframe::App for SpindleApp {
                 ui.add_space(12.0);
 
                 ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
-                    if ui
-                        .selectable_label(self.state.tab == Tab::Settings, "Nastavenia")
-                        .clicked()
-                    {
+                    if nav_link(ui, self.state.tab == Tab::Settings, "Nastavenia").clicked() {
                         self.state.tab = Tab::Settings;
                     }
-                    if ui
-                        .selectable_label(self.state.tab == Tab::Search, "Vyhľadávanie")
-                        .clicked()
-                    {
+                    if nav_link(ui, self.state.tab == Tab::Search, "Vyhľadávanie").clicked() {
                         self.state.tab = Tab::Search;
                     }
-                    if ui
-                        .selectable_label(self.state.tab == Tab::Mp3, "MP3 Knižnica")
-                        .clicked()
-                    {
+                    if nav_link(ui, self.state.tab == Tab::Mp3, "MP3 Knižnica").clicked() {
                         self.state.tab = Tab::Mp3;
                     }
-                    if ui
-                        .selectable_label(self.state.tab == Tab::Cd, "CD Knižnica")
-                        .clicked()
-                    {
+                    if nav_link(ui, self.state.tab == Tab::Cd, "CD Knižnica").clicked() {
                         self.state.tab = Tab::Cd;
                     }
                 });
@@ -67,4 +55,14 @@ impl eframe::App for SpindleApp {
             Tab::Settings => screens::settings::show(ui, &mut self.state),
         }
     }
+}
+
+/// Header nav item: `.frame(false)` bypasses the theme's `weak_bg_fill`/
+/// `bg_stroke` entirely, so it never paints a background or border here —
+/// scoped to just these buttons rather than a global "no chrome" rule, so
+/// other buttons elsewhere in the app can still look like normal buttons.
+/// Text color still reacts to state (default vs. hovered vs. selected) via
+/// each `Theme`'s `fg_stroke`, set once in `theme::apply()`.
+fn nav_link(ui: &mut egui::Ui, selected: bool, text: &str) -> egui::Response {
+    ui.add(egui::Button::selectable(selected, text).frame(false))
 }
